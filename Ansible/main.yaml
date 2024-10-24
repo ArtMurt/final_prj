@@ -1,0 +1,26 @@
+- hosts: yserv
+  gather_facts: false
+  tasks:
+    - name: install aide
+      apt:
+        name: aide
+        state: present
+    - name: install aide-common
+      apt:
+        name: aide-common
+        state: present
+    - name: install auditd
+      apt:
+        name: auditd
+        state: present
+    - name: install audispd-plugins
+      apt:
+        name: audispd-plugins
+        state: present
+    - name: 6.1.1 init aide
+      command: "/usr/sbin/aideinit"
+    - name: 6.1.1 aide db
+      command: "/usr/bin/mv /var/lib/aide/aide.db.new /var/lib/aide/aide.db"
+    - name: 6.3.1.2 auditd
+      command: "/usr/bin/systemctl --now enable auditd"
+
